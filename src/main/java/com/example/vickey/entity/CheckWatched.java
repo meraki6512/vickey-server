@@ -1,5 +1,6 @@
-package com.example.vickey;
+package com.example.vickey.entity;
 
+import com.example.vickey.CheckWatchedKey;
 import com.example.vickey.entity.User;
 import com.example.vickey.entity.Video;
 import jakarta.persistence.*;

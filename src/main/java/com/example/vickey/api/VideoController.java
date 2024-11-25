@@ -20,16 +20,18 @@ public class VideoController {
         this.videoService = videoService;
     }
 
-    // 비디오 업로드 API
+    // 비디오 업로드 : 바로 S3에 동영상을 업로드
     @PostMapping("/upload")
-    public String uploadVideo(@RequestParam("file") MultipartFile file,
-                              @RequestParam("episodeId") Long episodeId,
-                              @RequestParam("episodeNum") int episodeNum) throws IOException {
-        // 파일을 서버에 업로드 후 URL을 반환받음
+    public ResponseEntity<String> uploadVideo(@RequestParam("file") MultipartFile file,
+                                              @RequestParam("episodeId") Long episodeId,
+                                              @RequestParam("episodeNum") int episodeNum) throws IOException {
+        // S3에 업로드
         String videoUrl = videoService.uploadVideo(file);
-        // 비디오 URL을 DB에 저장
+
+        // URL을 DB에 저장
         videoService.saveVideo(episodeId, videoUrl, episodeNum);
-        return "Video uploaded successfully!";
+
+        return ResponseEntity.ok("Video uploaded successfully: " + videoUrl);
     }
 
     @GetMapping
@@ -39,8 +41,8 @@ public class VideoController {
 
 
     @GetMapping
-    public ResponseEntity<List<Video>> getVideosById(@RequestParam Long id) {
-        List<Video> videos = videoService.findVideosById(id);
+    public ResponseEntity<List<Video>> getVideosByEpisodeId(@RequestParam Long episodeId) {
+        List<Video> videos = videoService.findVideosByEpisodeId(episodeId);
         if (videos.isEmpty()) {
             return ResponseEntity.noContent().build(); // 비어 있으면 204 반환
         }

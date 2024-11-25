@@ -1,6 +1,5 @@
 package com.example.vickey.service;
 
-import com.example.vickey.EpisodeTitleCountDto;
 import com.example.vickey.entity.Episode;
 import com.example.vickey.repository.EpisodeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,9 +19,9 @@ public class EpisodeService {
         this.episodeRepository = episodeRepository;
     }
 
-    public List<EpisodeTitleCountDto> getEpisodeTitlesAndCounts() {
-        return episodeRepository.findTitleAndEpisodeCount();
-    }
+//    public List<EpisodeTitleCountDto> getEpisodeTitlesAndCounts() {
+//        return episodeRepository.findTitleAndEpisodeCount();
+//    }
 
     public List<Episode> getAllEpisodes() {
         return episodeRepository.findAll();

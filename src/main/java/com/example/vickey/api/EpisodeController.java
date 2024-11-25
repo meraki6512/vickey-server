@@ -1,7 +1,6 @@
 package com.example.vickey.api;
 
 import com.example.vickey.service.EpisodeService;
-import com.example.vickey.EpisodeTitleCountDto;
 import com.example.vickey.entity.Episode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,11 +24,6 @@ public class EpisodeController {
     @GetMapping
     public List<Episode> getAllEpisodes() {
         return episodeService.getAllEpisodes();
-    }
-
-    @GetMapping("/titles-counts")
-    public List<EpisodeTitleCountDto> getEpisodeTitlesAndCounts() {
-        return episodeService.getEpisodeTitlesAndCounts();
     }
 
     @GetMapping("/thumbnails")

@@ -2,6 +2,9 @@ package com.example.vickey.entity;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // 컨텐츠 (==episode; 처음 설계 시 이름을 헷갈리게 지정했으니 주의)
 @Entity
 public class Episode {
@@ -23,6 +26,9 @@ public class Episode {
 
     @Column(name = "cast_list")
     private String castList;
+
+    @OneToMany(mappedBy = "episode", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Video> videos = new ArrayList<>();
 
     // Getters 및 Setters
 

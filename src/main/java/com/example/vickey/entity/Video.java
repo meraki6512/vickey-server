@@ -1,5 +1,6 @@
 package com.example.vickey.entity;
 
+import com.example.vickey.repository.EpisodeRepository;
 import jakarta.persistence.*;
 
 @Entity
@@ -11,8 +12,8 @@ public class Video {
     private Long videoId;
 
     @ManyToOne
-    @JoinColumn(name = "episode_id", nullable = false)
-    private Long episodeId;
+    @JoinColumn(name = "episode_id", nullable = false) //외래키 설정
+    private Episode episode;
 
     @Column(nullable = false)
     private String videoUrl;
@@ -33,12 +34,13 @@ public class Video {
         this.videoId = videoId;
     }
 
-    public Long getEpisodeId() {
-        return episodeId;
+    public void setEpisodeId(Long episodeId, EpisodeRepository episodeRepository) {
+        this.episode = episodeRepository.findById(episodeId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid Episode ID: " + episodeId));
     }
 
-    public void setEpisodeId(Long episodeId) {
-        this.episodeId = episodeId;
+    public Long getEpisodeId() {
+        return this.episode != null ? this.episode.getEpisodeId() : null;
     }
 
     public String getVideoUrl() {
